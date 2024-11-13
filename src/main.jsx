@@ -7,6 +7,10 @@ import Root from './components/Root.jsx'
 import Login from './components/Login.jsx'
 import SignUp from './components/SignUp.jsx'
 import AuthComponent from './providers/AuthComponent.jsx'
+import Home from './pages/Home.jsx'
+import OrderList from './pages/OrderList.jsx'
+import PrivateRoutes from './privateRoutes/PrivateRoutes.jsx'
+import UpdateProfile from './pages/UpdateProfile.jsx'
 
 const routes = createBrowserRouter([
    {
@@ -15,7 +19,7 @@ const routes = createBrowserRouter([
       children: [
          {
             path: '/',
-            element: <h1 className='text-center font-bold text-3xl'>This is Home Page</h1>
+            element: <Home></Home>
          },
          {
             path: '/login',
@@ -24,6 +28,14 @@ const routes = createBrowserRouter([
          {
             path: '/signUp',
             element: <SignUp></SignUp>
+         },
+         {
+            path: '/orderList',
+            element: <PrivateRoutes><OrderList></OrderList></PrivateRoutes>
+         },
+         {
+            path: '/updateProfile',
+            element: <PrivateRoutes><UpdateProfile></UpdateProfile></PrivateRoutes>
          }
       ]
    }

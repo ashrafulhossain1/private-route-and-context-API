@@ -4,14 +4,27 @@ import { AuthContext } from '../providers/AuthComponent';
 
 const Navbar = () => {
 
-    const nothing = useContext(AuthContext)
-    console.log(nothing)
+    const { userSignOutBtn, user } = useContext(AuthContext)
+    // console.log('navbar:', user)
+
+
+    // Sign Out
+    const handleLogOut = () => {
+        userSignOutBtn()
+    }
 
     const links =
         <>
             <li><NavLink to='/'>Home</NavLink></li>
             <li><NavLink to='/login'>Login</NavLink></li>
             <li><NavLink to='/signUp'>Sign Up</NavLink></li>
+            {
+                user && <>
+                    <li><NavLink to='/orderList'>Order List</NavLink></li>
+                    <li><NavLink to='/updateProfile'>Update Profile</NavLink></li>
+                </>
+
+            }
         </>
 
     return (
@@ -51,7 +64,27 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <button>User Name</button>
+                    {
+                        user ?
+                            <button onClick={handleLogOut} className='btn'>Log Out</button>
+                            :
+
+                            <Link to='/login' className='btn btn-sm border border-white'>Log in</Link>
+                    }
+                    {
+                        user ? (
+                            user.photoURL ? (
+                                <img src={user.photoURL} alt="User Profile" className='h-11 w-11 rounded-full border-2 border-orange-700' />
+                            ) : user.displayName && user.displayName.trim() ? (
+                                <p className='text-xs'>{user.displayName}</p>
+                            ) : (
+                                <p className='text-xs'>{user.email}</p>
+                            )
+                        ) : null
+                    }
+
+
+
                 </div>
             </div>
         </div>
